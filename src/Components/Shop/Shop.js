@@ -5,6 +5,9 @@ import "./shop.css"
 import bundle from "../../Assets/Bossplanner/the-boss-planner-pink book.png"
 import bossbundle from "../../Assets/Bossbundle/the-boss-bundle-selar.co-6520051712d60.jpeg"
 import recap from "../../Assets/Recap/recap-to-roadmap-workbook-selar.co-651a886b9181e.jpeg"
+import strat from "../../Assets/1:1/1-1-personalized-strategy-selar.co-6514251eefc9b.jpeg"
+
+
 function Shop() {
   return (
     <Container fluid className="project-section">
@@ -48,8 +51,15 @@ function Shop() {
 
             />
           </Col>
-          
-          
+          <Col md={4} className="project-card">
+          <ShopCard
+              imgPath={strat}
+              isBlog={false}
+              title="1:1 Strategy Session"
+              description="Join our 2-hour intensive strategy session to craft a goal-achieving strategy and monetize your skills, gaining insights, resources, and a personalized action plan for skill monetization and goal achievement, supported by experienced mentors and long-term coaching."
+
+            />
+          </Col>         
         </Row>
          </Container>
     </Container>

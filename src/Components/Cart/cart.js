@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import "./cart.css";
+import { Link } from "react-router-dom";
 
 function Cart({ cart, setCart, handleChange }) {
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
@@ -122,16 +123,20 @@ function Cart({ cart, setCart, handleChange }) {
           <div className="total-price">
             Total Price: Ksh {isNaN(totalPrice) ? "0.00" : totalPrice.toFixed(2)}
           </div>
-          <Button
-            className="place-order-btn"
-            variant="primary"
-            // onClick={handlePlaceOrder}
-            // disabled={isPlacingOrder}
-          >
-            {isPlacingOrder ? "Placing Order..." : "Place Order"}
-          </Button>
+
+          <Link to="/orders">
+            <Button
+              className="place-order-btn"
+              variant="primary"           
+              // onClick={handlePlaceOrder}
+              // disabled={isPlacingOrder}
+            >
+              {isPlacingOrder ? "Placing Order..." : "Proceed to Checkout"}
+            </Button>
+          </Link>
+         
         </>
-    //   )}
+    {/* //   )} */}
     </div>
   );
 }

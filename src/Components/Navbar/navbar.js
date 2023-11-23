@@ -4,14 +4,10 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 import {
-  
-  AiOutlineHome,
   AiOutlineShoppingCart,
-  AiOutlineFundProjectionScreen,
   AiOutlineUser,
 } from "react-icons/ai";
 import  "./navbar.css"
-import { CgFileDocument } from "react-icons/cg";
 
 function NavBar() {
   const [expand, updateExpanded] = useState(false);
@@ -26,8 +22,6 @@ function NavBar() {
       navbar.classList.remove('shadow');
       updateNavbar(false);
     }
-
-
   window.addEventListener("scroll", scrollHandler);
   
   });
@@ -50,19 +44,16 @@ function NavBar() {
           <span></span>
           <span></span>
         </Navbar.Toggle>
-        <a href="http:localhost:3000/" className='logotxt'>                
+        {/* <Link to="/"> */}
+                <a href="/" className='logotxt'>                
                    <span className='logotxt'> 
-                     The Boss Domain
+                     The <span className="logospn"> Boss</span> Domain
                    </span>                
-                 </a>  
+                 </a>
+        {/* </Link>
+           */}
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto" defaultActiveKey="#home">
-            <Nav.Item>
-              <Nav.Link as={Link} to="/" onClick={() => updateExpanded(false)}>
-                <AiOutlineHome style={{ marginBottom: "2px" }} /> Home
-              </Nav.Link>
-            </Nav.Item>
-
             <Nav.Item>              
               <Nav.Link
                 as={Link}
@@ -72,7 +63,6 @@ function NavBar() {
                 <AiOutlineUser style={{ marginBottom: "2px" }} /> About
               </Nav.Link>             
             </Nav.Item>
-
             <Nav.Item>
               <Nav.Link
                 as={Link}

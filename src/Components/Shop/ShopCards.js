@@ -17,10 +17,10 @@ function ShopCards(props) {
         <Card.Text>
           Price: {props.amount}
         </Card.Text>
-        <Button variant="primary" to="/cart" target="_blank">
-          <BsShop /> &nbsp;
-          {"Buy"}
-        </Button>         
+        <Link to="/cart" >
+         <button class="orderfmbtn btn btn-primary" type="submit">Place Order</button> 
+        </Link>
+             
       </Card.Body>
     </Card>
   );
