@@ -1,67 +1,77 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import ShopCard from "./ShopCards";
-import "./shop.css"
-import bundle from "../../Assets/Bossplanner/the-boss-planner-pink book.png"
-import bossbundle from "../../Assets/Bossbundle/the-boss-bundle-selar.co-6520051712d60.jpeg"
-import recap from "../../Assets/Recap/recap-to-roadmap-workbook-selar.co-651a886b9181e.jpeg"
-import strat from "../../Assets/1:1/1-1-personalized-strategy-selar.co-6514251eefc9b.jpeg"
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Container, Row, Col, Modal, Button, Card } from "react-bootstrap";
+import "./shop.css";
 
+function Shop({ handleClick }) {
+  const [products, setProducts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState({});
 
-function Shop() {
+  useEffect(() => {
+    fetch("http://localhost:3000/products")
+      .then((response) => response.json())
+      .then((products) => {
+        setProducts(products);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const handleShow = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
   return (
     <Container fluid className="project-section">
-      
-      <Container>       
-        <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-          <Col md={4} className="project-card">
-            <ShopCard
-              imgPath={bundle}
-              isBlog={false}
-              title="The Boss Planner"
-              description="The Boss Planner 2024 Edition is a powerful 345-page tool designed to empower individuals struggling with self-discipline, consistency, and mindset, offering a comprehensive guide to take charge of life, business, and career, with features like personal roles, vision board, and daily action steps."
+      <Container>
+        <Row style={{ justifyContent: "center"}}>
+          {products.map((item) => (
+            <Col md={5} className="project-card" key={item.id}>
+              <div className="project-card-views" key={item.id}>
+                  <div  className="project-card">
 
-            />
-          </Col>
-          <Col md={4} className="project-card">
-          <ShopCard
-              imgPath={bossbundle}
-              isBlog={false}
-              title="The Boss Bundle"
-              description="The 2024 Boss Bundle: Your ultimate toolkit for success, combining The Boss Planner for strategic goal planning and Recap to Roadmap Workbook for self-reflection, providing a holistic approach to achieving your dreams in 2024."
-           
-            />
-          </Col>
-
-          <Col md={4} className="project-card">
-          <ShopCard
-              imgPath={recap}
-              isBlog={false}
-              title="Recap to Roadmap workbook"
-              description="Recap to Roadmap Workbook: Your transformative guide for self-discovery, effective decision-making, and strategic planning, empowering you to gain clarity about your past, understand your strengths, and embark on a purposeful journey toward success in the upcoming year."
-
-            />
-          </Col>
-          <Col md={4} className="project-card">
-          <ShopCard
-              // imgPath={ireporter}
-              isBlog={false}
-              title="Free Guide: Goals to Strategy"
-              description="The iReporter app is a web-based platform designed to empower citizens in African countries to combat corruption and request government intervention."
-
-            />
-          </Col>
-          <Col md={4} className="project-card">
-          <ShopCard
-              imgPath={strat}
-              isBlog={false}
-              title="1:1 Strategy Session"
-              description="Join our 2-hour intensive strategy session to craft a goal-achieving strategy and monetize your skills, gaining insights, resources, and a personalized action plan for skill monetization and goal achievement, supported by experienced mentors and long-term coaching."
-
-            />
-          </Col>         
-        </Row>
-         </Container>
+                    <img src={item.image_url}  className="card-img img" alt={item.name} />
+                    <div className="card-body">                   
+                         <Card.Title>
+                           {item.name}
+                         </Card.Title>
+                          <Card.Text style={{ textAlign: "justify", fontSize: '0.9rem' }}>
+                              <a className="cardbout" onClick={handleShow}>
+                                Read more
+                              </a>{" "}
+                            </Card.Text>
+                          <Card.Text><span className="price"><span className="cash">Price: </span> Ksh {item.amount}/-</span></Card.Text>
+                      <Link to="/cart">
+                        <button onClick={() => handleClick(item)} className=" btn btn-primary">
+                          Add to cart
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+            </Col>
+          ))}
+        </Row>       
+      </Container>
+      {/* Modal for Description */}
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedProduct.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{selectedProduct.description}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

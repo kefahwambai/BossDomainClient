@@ -4,76 +4,20 @@ import "./cart.css";
 import { Link } from "react-router-dom";
 
 function Cart({ cart, setCart, handleChange }) {
-  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(0);
 
-//   useEffect(() => {
-//     let ans = 0;
-//     cart.forEach((item) => {
-//       if (item.price && item.amount) {
-//         ans += item.price * item.amount;
-//       }
-//     });
-//     setTotalPrice(ans);
-//     localStorage.setItem("cart", JSON.stringify(cart));
-//   }, [cart]);
+  
+  const totalPrice = cart.reduce((total, product) => {
+    return total + product.amount * product.quantity;
+  }, 0);
 
-//   useEffect(() => {
-//     const savedCart = JSON.parse(localStorage.getItem("cart"));
-//     if (savedCart) {
-//       setCart(savedCart);
-//     }
-//   }, [setCart]);
-
-//   const handleRemove = (item) => {
-//     setCart(cart.filter((i) => i !== item));
-//   };
-
-//   const sendOrderToBackend = async (order) => {
-//     try {
-//       const response = await fetch("http://localhost:9292/orders", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(order),
-//       });
-//       const data = await response.json();
-//       console.log(data);
-//       setCart([]);
-//       localStorage.removeItem("cart");
-//       alert("Order placed successfully!");
-//     } catch (error) {
-//       console.error(error);
-//     } finally {
-//       setIsPlacingOrder(false);
-//     }
-//   };
-
-//   const handlePlaceOrder = () => {
-//     setIsPlacingOrder(true);
-//     const order = {
-//       order: {
-//         total: totalPrice,
-//         items: JSON.stringify(
-//           cart.map((item) => ({
-//             mushroom_id: item.id,
-//             quantity: item.amount,
-//             price: item.price,
-//           }))
-//         ),
-//       },
-//     };
-//     sendOrderToBackend(order);
-//   };
   return (
     <div className="cart-container">
-      {/* {cart.length === 0 ? ( */}
+      {cart.length === 0 ? (
         <div className="empty-cart">No items in cart</div>
-      {/* ) : ( */}
+      ) : (
         <>
           <Table striped bordered hover responsive>
-            <thead>
+            <thead className="theads">
               <tr>
                 <th>Item Name</th>
                 <th>Price</th>
@@ -82,61 +26,59 @@ function Cart({ cart, setCart, handleChange }) {
                 <th></th>
               </tr>
             </thead>
-            <tbody>
-              {/* {cart.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.name}</td>
-                  <td>Ksh {item.price.toFixed(2)}</td>
+            <tbody className="theads">
+              {cart.map((product) => (                
+                <tr key={product.id}>
+                  <td>{product.name}</td>
+                  <td> {product.amount}/-</td>
                   <td>
                     <Button
                       variant="outline-secondary"
                       size="sm"
                       className="mr-2"
-                      onClick={() => handleChange(item, -1)}
+                      onClick={() => handleChange(product, -1)}
                     >
                       -
                     </Button>
-                    <span className="quantity">{item.amount}</span>
+                    <span className="quantity">{product.quantity}</span>
                     <Button
                       variant="outline-secondary"
                       size="sm"
                       className="ml-2"
-                      onClick={() => handleChange(item, 1)}
+                      onClick={() => handleChange(product, 1)}
                     >
                       +
                     </Button>
                   </td>
-                  <td>KSh {(item.amount * item.price).toFixed(2)}</td>
+                  <td>Ksh {product.amount * product.quantity}
+                  </td>
                   <td>
                     <Button
                       variant="danger"
-                      size="sm"
-                    //   onClick={() => handleRemove(item)}
+                      size="sm"                    
                     >
                       Remove
                     </Button>
                   </td>
                 </tr>
-              ))} */}
+              ))}
             </tbody>
           </Table>
           <div className="total-price">
-            Total Price: Ksh {isNaN(totalPrice) ? "0.00" : totalPrice.toFixed(2)}
+            <span>Your Cart Total is:</span>
+            <span>Kshs {totalPrice}</span>
           </div>
-
-          <Link to="/orders">
+          <Link to={{ pathname: "/orders", state: { totalPrice } }}>
             <Button
               className="place-order-btn"
-              variant="primary"           
-              // onClick={handlePlaceOrder}
-              // disabled={isPlacingOrder}
+              variant="primary"       
             >
-              {isPlacingOrder ? "Placing Order..." : "Proceed to Checkout"}
+              Proceed to Checkout
             </Button>
           </Link>
          
         </>
-    {/* //   )} */}
+    )} 
     </div>
   );
 }

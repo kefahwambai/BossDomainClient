@@ -1,16 +1,20 @@
 .project-card-view {
-    box-shadow: 0 4px 5px 3px rgba(1, 0, 0, 0.661) !important;
-    border: 1.7px solid rgba(3, 250, 250, 0.561) !important;
+    box-shadow: 0 3px 9px 1px rgba(1, 0, 0, 0.661) !important;   
     color: rgb(156, 22, 22) !important;
     background-color: transparent !important;
     opacity: 0.9 !important;
     transition: all 0.5s ease 0s !important;
     height: 100% !important;
 }
-.project-card-view:hover {
-    transform: scale(1.02) !important;
-    overflow: hidden !important;
-    box-shadow: 0 4px 4px 5px rgba(11, 120, 120, 0.561) !important;
+
+.project-card-views {
+    box-shadow: 0 3px 9px 1px rgba(1, 0, 0, 0.661) !important;   
+    color: rgb(156, 22, 22) !important;
+    background-color: transparent !important;
+    opacity: 0.9 !important;    
+    height: 100% !important;
+    border-radius: 20px;
+
 }
 
 .project-section {
@@ -20,16 +24,33 @@
     background-image: var(--section-background-color) !important;
 }
   
+.price {
+    color: black;
+}
+
+.cash {
+    font-weight: 800;
+    font-style: italic;
+}
 .project-card {
     padding-top: 50px !important;
     padding-bottom: 50px !important;
     padding-left: 25px !important;
     padding-right: 25px !important;
     height: auto !important;
+    /* border: 1px;
+    border-style: solid; */
 }
 
 .img {    
-    border-radius: 15%;
-    padding: 2rem;
-    margin-bottom: 0;    
+    border-style: solid;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;     
+}
+
+
+.cardabout {
+    color: darkgreen;
+    
+    text-decoration: dashed;
 }
