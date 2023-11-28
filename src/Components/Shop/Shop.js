@@ -36,8 +36,7 @@ function Shop({ handleClick }) {
             <Col md={5} className="project-card" key={item.id}>
               <div className="project-card-views" key={item.id}>
                   <div  className="project-card">
-
-                    <img src={item.image_url}  className="card-img img" alt={item.name} />
+                    <img src={item.image_url}  className="img" alt={item.name} />
                     <div className="card-body">                   
                          <Card.Title>
                            {item.name}

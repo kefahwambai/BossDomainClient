@@ -1,29 +1,18 @@
-.project-card-view {
-    box-shadow: 0 3px 9px 1px rgba(1, 0, 0, 0.661) !important;   
+.project-card-views {
+    box-shadow: 0 3px 9px 1px rgba(1, 0, 0, 0.661) !important;
     color: rgb(156, 22, 22) !important;
     background-color: transparent !important;
     opacity: 0.9 !important;
-    transition: all 0.5s ease 0s !important;
-    height: 100% !important;
-}
-
-.project-card-views {
-    box-shadow: 0 3px 9px 1px rgba(1, 0, 0, 0.661) !important;   
-    color: rgb(156, 22, 22) !important;
-    background-color: transparent !important;
-    opacity: 0.9 !important;    
-    height: 100% !important;
+    width: 77%;
     border-radius: 20px;
+    margin-bottom: 2rem;
 
 }
 
 .project-section {
-    position: relative !important;
     padding-top: 150px !important;
-    padding-bottom: 30px !important;
-    background-image: var(--section-background-color) !important;
 }
-  
+
 .price {
     color: black;
 }
@@ -32,25 +21,36 @@
     font-weight: 800;
     font-style: italic;
 }
+
 .project-card {
-    padding-top: 50px !important;
-    padding-bottom: 50px !important;
-    padding-left: 25px !important;
-    padding-right: 25px !important;
-    height: auto !important;
-    /* border: 1px;
-    border-style: solid; */
+    /* padding: 25px; */
+    padding-top: 25px !important;
+    padding-bottom: 25px !important;
+    padding-left: 28px !important;
+    padding-right: 25px !important;   
 }
 
-.img {    
-    border-style: solid;
-    border-radius: 20px;
-    margin-bottom: 1.5rem;     
+.img {
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    width: 100%; 
+    max-width: 20rem; 
+    height: auto; 
 }
 
+@media (max-width: 780px) {
+    .img {
+        max-width: 16.5rem;
+    }
 
-.cardabout {
-    color: darkgreen;
-    
-    text-decoration: dashed;
+    .project-card {
+        padding: 15px; 
+    }
+
+    .project-card-views {
+        width: 66%;
+    }
+
+
 }
+  

@@ -2,17 +2,13 @@
     margin-top: 3rem;    
     position: relative !important;
     padding-top: 150px !important;
-    /* padding-bottom: 20px !important; */
+    background-color: transparent !important;
+    opacity: 0.9 !important;   
     background-image: var(--section-background-color) !important;
     color: rgb(14, 14, 14) !important;
     
 }
 
-.about-content {
-    
-    /* font-size: 0.5rem; */
-
-}
 
 .about-content h1 {
     text-align: center;

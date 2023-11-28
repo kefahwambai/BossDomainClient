@@ -24,8 +24,7 @@ function LandingPage() {
                 </Button>
               </Col>
               <Col md={4} className="myAvtar">
-              <Tilt>
-                {/* <img src={myImg} className="img-fluid image" alt="avatar" /> */}
+              <Tilt>                
               </Tilt>
             </Col>
             </Row>

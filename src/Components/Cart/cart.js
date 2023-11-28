@@ -1,14 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import "./cart.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate }  from "react-router-dom";
+
 
 function Cart({ cart, setCart, handleChange }) {
+  const history = useNavigate();
+  const [totalPrice, setTotalPrice] = useState('');  
 
+
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart"));    
   
-  const totalPrice = cart.reduce((total, product) => {
-    return total + product.amount * product.quantity;
-  }, 0);
+    if (savedCart) {
+      console.log(savedCart)
+      setCart(savedCart);
+    }
+  }, [setCart]);
+
+  useEffect(() => {
+    let ans = 0;
+    cart.forEach((item) => {
+      if (item.quantity && item.amount) {
+        ans += item.quantity * item.amount;
+      }
+    });
+    console.log(ans)
+    setTotalPrice(ans);
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  const handleRemove = (product) => {
+    setCart(cart.filter((i) => i !== product));
+  };
+
 
   return (
     <div className="cart-container">
@@ -55,7 +80,8 @@ function Cart({ cart, setCart, handleChange }) {
                   <td>
                     <Button
                       variant="danger"
-                      size="sm"                    
+                      size="sm"
+                      onClick={() => handleRemove(product)}                    
                     >
                       Remove
                     </Button>
@@ -68,11 +94,8 @@ function Cart({ cart, setCart, handleChange }) {
             <span>Your Cart Total is:</span>
             <span>Kshs {totalPrice}</span>
           </div>
-          <Link to={{ pathname: "/orders", state: { totalPrice } }}>
-            <Button
-              className="place-order-btn"
-              variant="primary"       
-            >
+          <Link to="/orders">
+            <Button className="place-order-btn" variant="primary">
               Proceed to Checkout
             </Button>
           </Link>

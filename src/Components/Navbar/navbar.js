@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 import {
   AiOutlineShoppingCart,
   AiOutlineUser,
+  AiOutlineShop
 } from "react-icons/ai";
 import  "./navbar.css"
 
-function NavBar() {
+function NavBar({ cart, setCart, size }) {
   const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false);
 
@@ -25,6 +26,18 @@ function NavBar() {
   window.addEventListener("scroll", scrollHandler);
   
   });
+
+  // useEffect(() => {
+  //   const savedCart = JSON.parse(localStorage.getItem("cart")); 
+  //   if (savedCart) {
+  //     console.log(savedCart)
+  //     setCart(savedCart);
+  //   }
+  // }, [setCart]);
+
+  // useEffect(() => {  
+  //   localStorage.setItem("cart", JSON.stringify(cart));
+  // }, [cart]);
 
   return (
     <Navbar
@@ -69,13 +82,33 @@ function NavBar() {
                 to="/shop"
                 onClick={() => updateExpanded(false)}
               >
-                <AiOutlineShoppingCart
+                <AiOutlineShop
                   style={{ marginBottom: "2px" }}
                 />{" "}
                 Shop
               </Nav.Link>
-            </Nav.Item>            
-          
+            </Nav.Item>
+            {size ? (
+              <Nav.Item>
+                <Nav.Link
+                  as={Link}
+                  to="/cart"
+                  onClick={(event) => {
+                    // updateExpanded(false);
+                    event.preventDefault();
+                  }}
+                  // onClick={() => updateExpanded(false)}
+                >
+                  <AiOutlineShoppingCart
+                    style={{ marginBottom: "2px" }}
+                  />{" "}
+                  Cart
+                </Nav.Link>
+              </Nav.Item> 
+            ) : (
+              <>
+              </>
+            )}         
           </Nav>
         </Navbar.Collapse>
       </Container>
