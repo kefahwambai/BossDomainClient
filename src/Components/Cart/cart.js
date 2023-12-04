@@ -1,39 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button } from "react-bootstrap";
 import "./cart.css";
-import { Link, useNavigate }  from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
+const Cart = ({ cart, setCart, handleChange, handleClick }) => {
+  const [totalPrice, setTotalPrice] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-function Cart({ cart, setCart, handleChange }) {
-  const history = useNavigate();
-  const [totalPrice, setTotalPrice] = useState('');  
-
-
-  useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem("cart"));    
-  
-    if (savedCart) {
-      console.log(savedCart)
-      setCart(savedCart);
-    }
-  }, [setCart]);
-
-  useEffect(() => {
-    let ans = 0;
-    cart.forEach((item) => {
-      if (item.quantity && item.amount) {
-        ans += item.quantity * item.amount;
-      }
-    });
-    console.log(ans)
-    setTotalPrice(ans);
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-
-  const handleRemove = (product) => {
-    setCart(cart.filter((i) => i !== product));
+  const handleRemove = (id) => {
+    const arr = cart.filter((item) => item.id !== id);
+    setCart(arr);
+    handlePrice();
   };
 
+  const handlePrice = () => {
+    let ans = 0;
+    console.log(cart)
+    cart.map((item) => (ans += item.amount * item.quantity));
+    console.log(ans);
+    setTotalPrice(ans);
+  };
+
+  useEffect(() => {
+    handlePrice();
+  });
 
   return (
     <div className="cart-container">
@@ -41,7 +31,7 @@ function Cart({ cart, setCart, handleChange }) {
         <div className="empty-cart">No items in cart</div>
       ) : (
         <>
-          <Table striped bordered hover responsive>
+          <table striped bordered hover responsive>
             <thead className="theads">
               <tr>
                 <th>Item Name</th>
@@ -52,7 +42,7 @@ function Cart({ cart, setCart, handleChange }) {
               </tr>
             </thead>
             <tbody className="theads">
-              {cart.map((product) => (                
+              {cart.map((product) => (
                 <tr key={product.id}>
                   <td>{product.name}</td>
                   <td> {product.amount}/-</td>
@@ -65,7 +55,7 @@ function Cart({ cart, setCart, handleChange }) {
                     >
                       -
                     </Button>
-                    <span className="quantity">{product.quantity}</span>
+                    <span className="quantity"> {product.quantity} </span>
                     <Button
                       variant="outline-secondary"
                       size="sm"
@@ -75,13 +65,17 @@ function Cart({ cart, setCart, handleChange }) {
                       +
                     </Button>
                   </td>
-                  <td>Ksh {product.amount * product.quantity}
+                  <td> Ksh
+                    {product.quantity === 0
+                      ? product.amount
+                      : product.amount * product.quantity
+                    }
                   </td>
                   <td>
                     <Button
                       variant="danger"
                       size="sm"
-                      onClick={() => handleRemove(product)}                    
+                      onClick={() => handleRemove(product.id)}
                     >
                       Remove
                     </Button>
@@ -89,21 +83,20 @@ function Cart({ cart, setCart, handleChange }) {
                 </tr>
               ))}
             </tbody>
-          </Table>
-          <div className="total-price">
-            <span>Your Cart Total is:</span>
-            <span>Kshs {totalPrice}</span>
+          </table>
+          <div className="total">
+            <span>Your Total is: </span>
+            <span>Kshs.{totalPrice}</span>
           </div>
-          <Link to="/orders">
+          <Link to="/orders" onClick={() => handleClick(selectedProduct)}>
             <Button className="place-order-btn" variant="primary">
               Proceed to Checkout
             </Button>
           </Link>
-         
         </>
-    )} 
+      )}
     </div>
   );
-}
+};
 
 export default Cart;

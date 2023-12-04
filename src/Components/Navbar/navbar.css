@@ -74,6 +74,21 @@
   opacity: 0.9 !important;
 }
 
+
+.navbar-nav .nav-link {
+  color:black!important;
+  padding-right: 1rem !important;
+  padding-left: 1rem !important;
+}
+
+.nav-link {
+  padding: 0.8rem 1rem !important;
+}
+
+.navbar-brand {
+  color:  hotpink !important;
+}
+
 @media (max-width: 767px) {
   .navbar {
     padding: 1rem 2rem !important;
@@ -87,26 +102,18 @@
   .navbar-nav .nav-item a::after {
     display: none !important;
   }
-}
-.navbar-brand {
-  color:  hotpink !important;
-}
-
-.navbar-nav .nav-link {
-  color:black!important;
-  padding-right: 1rem !important;
-  padding-left: 1rem !important;
-}
-
-.nav-link {
-  padding: 0.8rem 1rem !important;
-}
-
-@media (max-width: 767px) {
   .nav-link {
     padding: 0.7rem 1rem !important;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .logotxt{
+    font-size: 1.7rem !important;
+
+  }  
+}
+
 
 .navbar-nav .nav-item {
   position: relative;

@@ -27,18 +27,6 @@ function NavBar({ cart, setCart, size }) {
   
   });
 
-  // useEffect(() => {
-  //   const savedCart = JSON.parse(localStorage.getItem("cart")); 
-  //   if (savedCart) {
-  //     console.log(savedCart)
-  //     setCart(savedCart);
-  //   }
-  // }, [setCart]);
-
-  // useEffect(() => {  
-  //   localStorage.setItem("cart", JSON.stringify(cart));
-  // }, [cart]);
-
   return (
     <Navbar
       expanded={expand}
@@ -92,17 +80,16 @@ function NavBar({ cart, setCart, size }) {
               <Nav.Item>
                 <Nav.Link
                   as={Link}
-                  to="/cart"
+                  to="/checkout"
                   onClick={(event) => {
-                    // updateExpanded(false);
                     event.preventDefault();
-                  }}
-                  // onClick={() => updateExpanded(false)}
+                  }}                 
                 >
-                  <AiOutlineShoppingCart
+                <AiOutlineShoppingCart
                     style={{ marginBottom: "2px" }}
                   />{" "}
                   Cart
+                  {/* {size} */}
                 </Nav.Link>
               </Nav.Item> 
             ) : (

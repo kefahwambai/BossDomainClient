@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import './orders.css'
+// import './orders.css'
 
 function Orders({  setCart, cart }) {
     const [customer_name, setCustomerName] = useState('');
@@ -8,30 +8,7 @@ function Orders({  setCart, cart }) {
     const [customer_phonenumber, setCustomerPhonenumber] = useState('');
     const [delivery_address, setDeliveryAddress] = useState('');
     const [totalPrice, setTotalPrice] = useState('');  
-   
-
-
-    useEffect(() => {
-      const savedCart = JSON.parse(localStorage.getItem("cart"));
-   
-      if (savedCart) {
-        console.log(savedCart)
-        setCart(savedCart);
-      }
-    }, [setCart]);
   
-    useEffect(() => {
-      let ans = 0;
-      cart.forEach((item) => {
-        if (item.quantity && item.amount) {
-          ans += item.quantity * item.amount;
-        }
-      });
-    
-      setTotalPrice(ans);
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }, [cart]);
-   
 
 
     function handleMpesa(e) {
@@ -90,7 +67,8 @@ function Orders({  setCart, cart }) {
                 <label className="form-label">Customer Email</label>
                 <input
                     type="text" 
-                    className="forminpt form-control" 
+                    className="forminpt form-control"
+                    placeholder="youremail@example.com" 
                     id="formGroupExampleInput" 
                     value={customer_email} 
                     onChange={(event) => {setCustomerEmail(event.target.value)}} 

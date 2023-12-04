@@ -12,6 +12,7 @@ function Shop({ handleClick }) {
     fetch("http://localhost:3000/products")
       .then((response) => response.json())
       .then((products) => {
+        console.log(products)
         setProducts(products);
       })
       .catch((error) => {
@@ -32,23 +33,23 @@ function Shop({ handleClick }) {
     <Container fluid className="project-section">
       <Container>
         <Row style={{ justifyContent: "center"}}>
-          {products.map((item) => (
-            <Col md={5} className="project-card" key={item.id}>
-              <div className="project-card-views" key={item.id}>
+          {products.map((product) => (
+            <Col md={5} className="project-card" key={product.id}>
+              <div className="project-card-views" key={product.id}>
                   <div  className="project-card">
-                    <img src={item.image_url}  className="img" alt={item.name} />
+                    <img src={product.image_url}  className="img" alt={product.name} />
                     <div className="card-body">                   
                          <Card.Title>
-                           {item.name}
+                           {product.name}
                          </Card.Title>
                           <Card.Text style={{ textAlign: "justify", fontSize: '0.9rem' }}>
                               <a className="cardbout" onClick={handleShow}>
                                 Read more
                               </a>{" "}
                             </Card.Text>
-                          <Card.Text><span className="price"><span className="cash">Price: </span> Ksh {item.amount}/-</span></Card.Text>
-                      <Link to="/cart">
-                        <button onClick={() => handleClick(item)} className=" btn btn-primary">
+                          <Card.Text><span className="price"><span className="cash">Price: </span> Ksh {product.amount}/-</span></Card.Text>
+                      <Link to="/checkout">
+                        <button onClick={() => handleClick(product)} className=" btn btn-primary">
                           Add to cart
                         </button>
                       </Link>
